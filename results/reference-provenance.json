@@ -1,0 +1,18 @@
+[
+  {
+    "repository": "https://github.com/fankserver/dgx-spark-qwen3.5-122b-bench",
+    "commit": "1b3571c4a7eed8e9fd4e7189a5ec12bd71629ee0",
+    "path": "results/C_bf16_n4.json",
+    "github_blob_sha": "d8b8f009e03286f51f966ecc7a525f31d7610d14",
+    "sha256": "b1c0a16a58498548bf2a3dff77a5112c62c3e01acd82cf5153a27605ae18d9b1",
+    "local_path": "results/references/qwen35-dflash4.json"
+  },
+  {
+    "repository": "https://github.com/fankserver/dgx-spark-laguna-s21-nvfp4-bench",
+    "commit": "6fc8a2ef016c11ae68015168205729147e6b9468",
+    "path": "results/C_dflash_n3.json",
+    "github_blob_sha": "00a27e1cfd035d78ba1f6d70b77d50ea03045880",
+    "sha256": "becf3b2e5eefb4341206672c8f7496521a60d9fe7f0caf8ad1532593577c3337",
+    "local_path": "results/references/laguna-s21-dflash3.json"
+  }
+]
