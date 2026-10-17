@@ -1,0 +1,122 @@
+{
+  "model": {
+    "repository": "Mia-AiLab/GLM-5.3-Flash-EXL3-4bpw-TensorFold",
+    "revision": "078455ffe6472f9a52fbc1139f58b9db2881b25c",
+    "abliterated": false,
+    "license": "MIT"
+  },
+  "recipe": {
+    "repository": "https://github.com/jayleaton/glm53-tensorfold-spark",
+    "revision": "f79bf9c72968f79bc8f1dc788ddb48ac974d2858",
+    "patch_files": 78
+  },
+  "engine": {
+    "repository": "https://github.com/ashhart/TensorFold",
+    "revision": "2f8e514b0b7d615df7c971627ce3c0fb7e55d93a"
+  },
+  "image_id": "sha256:2102a11040f388600f0b63728db1cfed13e22fbba0025cb3b8e884ff1dbc0100",
+  "local_contract_patch_sha256": "b21b02eba72c95a3f3cb3859cbc716bb90ffba9cdb975fdb29f1e3a223dff6f6",
+  "topology": "TP2 across two NVIDIA GB10 / DGX Spark nodes",
+  "dense": "q4mse",
+  "latent_kv": "fp8",
+  "drafter": "native MTP; no external DFlash2",
+  "configured_native_slots": 4,
+  "context": {
+    "requested_per_request": 1048576,
+    "shared_pool_tokens": 1048576,
+    "native_page_rounded_pool_tokens": 1048832,
+    "not_four_full_windows": true
+  },
+  "date": "2026-10-17",
+  "utc_start": "2026-10-17T17:46:46Z",
+  "utc_end": "2026-10-17T19:19:35Z",
+  "parameters": {
+    "client_version": "0.4.0",
+    "depths": [
+      0,
+      512,
+      1024,
+      2048,
+      3072,
+      4096,
+      6144,
+      8192,
+      12288,
+      16384,
+      24576,
+      32768,
+      49152,
+      65536
+    ],
+    "concurrencies": [
+      1,
+      2,
+      4
+    ],
+    "pp": 512,
+    "tg": 256,
+    "exact_tg": true,
+    "runs": 2,
+    "latency_mode": "generation",
+    "prompt_adaptation": true,
+    "default_warmups": true,
+    "server_cache_enabled": true,
+    "client_prefix_measurement_mode": false
+  },
+  "validation": {
+    "all_42_points_complete": true,
+    "measured_requests": 196,
+    "all_outputs_exact_256": true,
+    "all_inputs_depth_plus_512": true,
+    "two_runs_per_pair": true,
+    "service_container_identity_unchanged": true
+  },
+  "interference": {
+    "expected_total_requests": 300,
+    "observed_native_completed_requests": 346,
+    "additional_unattributed_requests": 46,
+    "clean_scaling_comparison": false,
+    "observation_samples": 529,
+    "inflight_above_four_samples": 63
+  },
+  "observations": {
+    "max_native_decoding_observed": 4,
+    "head_min_available_gib": 6.560798645019531,
+    "worker_min_available_gib": 10.917797088623047
+  },
+  "native_counter_deltas_all_traffic": {
+    "requests_total": 346,
+    "errors": 0,
+    "prompt_tokens_total": 7006923,
+    "completion_tokens_total": 108989,
+    "cached_tokens_total": 741824,
+    "prefill_seconds_total": 9207.739499999998,
+    "decode_seconds_total": 4466.348900000001,
+    "drafted_total": 90222,
+    "accepted_total": 62547
+  },
+  "benchmark_cache_reuse_attributable": false,
+  "tokenizer_sha256": "19e773648cb4e65de8660ea6365e10acca112d42a854923df93db4a6f333a82d",
+  "client_source_sha256": {
+    "progress.py": "561902ff9061018cb26e40b18554d914df5e6cf836b0f5727d19b8c8b3c0c24f",
+    "_version.py": "1c606556f66943c376921d67fcb6393cce2cf658dc22075b38281737eb858dee",
+    "corpus.py": "88576869c29257bfc87a78fcc8d081b875a134d2329caa192d5f642532164124",
+    "__init__.py": "0f64da70908d880bdfc47a2fbfce829b592415f9b0823fd9e903e859d8c9161b",
+    "__main__.py": "f420a201b1365a11e52fe8308e22a38d1e33b64f0f83d7556bef08bafa689cca",
+    "runner.py": "5da2fc743562a1b12621f0bf8000bf8e0572dbe6e38feb0eda4fe95ec085536f",
+    "client.py": "3aa4667991b9f7cfdb6eca8dfb96b7a57fd15ceccced8458b0a50298f336f01c",
+    "results.py": "2c7ac6e6a8f8781a013af96276f805e4d2fe0b7f449b4e3ee7db8cade838acc3",
+    "config.py": "5b4bc194e56fa8ae873338696b81b96ff4037d36680dcd8ab742b035db31a73d",
+    "prompts.py": "01480038a2b640805bf4373086022b4531b122a5e21630fb0fe124d00de69849"
+  },
+  "same_client_and_tokenizer_as_first_c1": true,
+  "corpus": {
+    "url": "https://www.gutenberg.org/files/1661/1661-0.txt",
+    "file_sha256": "8a2f79a2f4601cfe6e25830c29c1a25c7a3d906285a989948117568f8077ab2c",
+    "tokenized_tokens": 141280,
+    "first_study_tokenized_tokens": 143040,
+    "caveat": "File/client/tokenizer hashes match, but download versus cached text loading can normalize newlines. All modes in this matrix share one loaded corpus; random prompt strings are not identical across requests."
+  },
+  "raw_results_sha256": "13b55cae5e83cf4a86450b175ee1ea6617597ca21ed9c9dac9f5724fec92b173",
+  "lab_evidence": "https://github.com/fankserver/dgx-spark-lab/tree/6abf7f70f4dd052504dd0c8e86d536cbd86bc220/evidence/validation/glm53-jay-concurrency-20261017"
+}

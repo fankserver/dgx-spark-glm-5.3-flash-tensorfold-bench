@@ -42,6 +42,8 @@ def write_comparison(root, rows):
           'Generated from the frozen reports. Arithmetic means of two measured runs; pp512/tg256, concurrency1.',
           '**GLM uses two nodes; historical Qwen and Laguna use one.** These are different models,',
           'quantization, draft methods, dates and software—not an engine-only or per-GPU A/B test.', '',
+          'This is the original single-stream study. The later [c1/c2/c4 matrix](concurrency.md)',
+          'is separate and includes additional traffic; do not combine its samples with this baseline.', '',
           'GLM: standard EXL3/native MTP/TensorFold TP2 (2026-10-17). Historical references:',
           'Qwen3.5 C_bf16_n4 (DFlash4), Laguna-S-2.1 C_dflash_n3 (DFlash3).',
           'The bf16 filename labels Qwen KV, not full-BF16 model weights.',
@@ -68,6 +70,12 @@ def write_comparison(root, rows):
            'See [methodology](results/methodology.json), [GLM raw results](results/glm53-standard-mtp-c1.json)',
            'and [datasets](dataset.csv) for exact values, scope and provenance.', '']
     (root/'comparison.md').write_text('\n'.join(text))
+
+
+def write_checksums(root):
+    files=[*sorted(root.glob('results/**/*.json')),*sorted(root.glob('dataset*.csv')),
+           *sorted(root.glob('dataset*.json')),*sorted(root.glob('graphs/*.png'))]
+    (root/'SHA256SUMS').write_text(''.join(hashlib.sha256(p.read_bytes()).hexdigest()+'  '+str(p.relative_to(root))+'\n' for p in files))
 
 
 def build(root, plots=True):
@@ -97,10 +105,7 @@ def build(root, plots=True):
             if footer.get_window_extent(renderer).overlaps(ax.xaxis.label.get_window_extent(renderer)):
                 raise ValueError('Plot footer overlaps x-axis label')
             fig.savefig(root/f'graphs/{name}.png',dpi=160);plt.close(fig)
-    files=[root/'results/glm53-standard-mtp-c1.json',root/'results/methodology.json',
-           root/'results/reference-provenance.json',root/'dataset.csv',root/'dataset.json',
-           *sorted(root.glob('results/references/*.json')),*sorted(root.glob('graphs/*.png'))]
-    (root/'SHA256SUMS').write_text(''.join(hashlib.sha256(p.read_bytes()).hexdigest()+'  '+str(p.relative_to(root))+'\n' for p in files))
+    write_checksums(root)
     return rows
 
 

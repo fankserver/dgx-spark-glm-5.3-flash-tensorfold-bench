@@ -4,6 +4,9 @@ Generated from the frozen reports. Arithmetic means of two measured runs; pp512/
 **GLM uses two nodes; historical Qwen and Laguna use one.** These are different models,
 quantization, draft methods, dates and software—not an engine-only or per-GPU A/B test.
 
+This is the original single-stream study. The later [c1/c2/c4 matrix](concurrency.md)
+is separate and includes additional traffic; do not combine its samples with this baseline.
+
 GLM: standard EXL3/native MTP/TensorFold TP2 (2026-10-17). Historical references:
 Qwen3.5 C_bf16_n4 (DFlash4), Laguna-S-2.1 C_dflash_n3 (DFlash3).
 The bf16 filename labels Qwen KV, not full-BF16 model weights.
