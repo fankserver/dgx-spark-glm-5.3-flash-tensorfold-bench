@@ -66,6 +66,10 @@ python3 -m venv .venv
 sha256sum -c SHA256SUMS
 ```
 
+For a separate concurrency sweep, add `--concurrency 1 2 4` and choose a new output file.
+That requests the same 14 depths at each level: 42 grid points and 196 measured requests, plus
+warmups/probes. The default remains concurrency 1; the original published dataset is unchanged.
+
 The endpoint should include `/v1`; tokenizer points to the exact checkpoint's tokenizer directory
 or `tokenizer.json`. Credentials stay in a private file or `OPENAI_API_KEY`, never this repository.
 The reproduction script is a portable example, not the original host controller. Version0.4.0

@@ -19,6 +19,8 @@ def main():
     parser.add_argument('--tokenizer',required=True,help='Exact checkpoint tokenizer directory or tokenizer.json')
     parser.add_argument('--api-key-file',type=Path,help='Private key file; alternatively OPENAI_API_KEY')
     parser.add_argument('--served-model',default='spark')
+    parser.add_argument('--concurrency',type=int,nargs='+',choices=(1,2,4),default=[1],
+                        help='Client concurrency levels; default preserves the published single-stream baseline')
     parser.add_argument('--output',type=Path,required=True,help='New report path; do not overwrite frozen published results')
     args=parser.parse_args()
     url=urlsplit(args.base_url)
@@ -37,7 +39,7 @@ def main():
     sys.argv=['llama-benchy','--base-url',args.base_url.rstrip('/'),'--model',MODEL,
               '--served-model-name',args.served_model,'--tokenizer',args.tokenizer,
               '--depth',*[str(n) for n in DEPTHS],'--pp','512','--tg','256','--exact-tg',
-              '--runs','2','--latency-mode','generation','--concurrency','1',
+              '--runs','2','--latency-mode','generation','--concurrency',*[str(n) for n in args.concurrency],
               '--format','json','--save-result',str(args.output),
               '--emit-progress',str(args.output.with_suffix('.progress.jsonl')),'--exit-on-first-fail',
               '--api-key',key]
